@@ -1,0 +1,22 @@
+export PATH_TO_BERT=uncased_L-2_H-128_A-2
+export DATA_DIR=squad
+export MODEL_DIR=output
+python train_eval.py \
+	--vocab_file=${PATH_TO_BERT}/vocab_zh.txt \
+	--bert_config_file=${PATH_TO_BERT}/bert_config.json \
+	--do_train=True \
+	--init_checkpoint=${PATH_TO_BERT}/bert_model.ckpt \
+	--train_file=${DATA_DIR}/cmrc2018_train.json \
+	--do_predict=True \
+	--predict_file=${DATA_DIR}/cmrc2018_dev.json \
+	--do_eval=True \
+	--eval_file=${DATA_DIR}/cmrc2018_trial.json \
+	--train_batch_size=32 \
+	--num_train_epochs=10 \
+	--max_seq_length=512 \
+	--doc_stride=128 \
+	--learning_rate=3e-5 \
+	--save_checkpoints_steps=1000 \
+	--output_dir=${MODEL_DIR} \
+	--do_lower_case=True \
+	--use_tpu=False
